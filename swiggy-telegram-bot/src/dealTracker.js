@@ -61,69 +61,29 @@ function getCanonicalItemKey(item) {
   return String(item.skuId || '');
 }
 
-function evaluateCustomRules(item, baseThreshold) {
-  const name = (item.name || '').toLowerCase();
-  const brand = (item.brand || '').toLowerCase();
+function evaluateCustomRules(item) {
   const cat = (item.category || '').toLowerCase() + ' ' + (item.subCategory || '').toLowerCase();
-
-  const isElectronics = cat.includes('electronic') || cat.includes('appliance') || cat.includes('mobile') || cat.includes('earphone') || cat.includes('laptop');
+  const isElectronics = cat.includes('electronic') || cat.includes('appliance') || cat.includes('mobile') || cat.includes('earphone') || cat.includes('laptop') || cat.includes('battery');
 
   let isGlitch = false;
-  const isPremiumCat = isElectronics || cat.includes('skincare');
-  if (item.price <= 50 && (isPremiumCat || item.mrp >= 400)) {
+  if (item.price <= 50 && (isElectronics || cat.includes('skincare') || item.mrp >= 400)) {
     isGlitch = true;
   }
 
-  let customThreshold = baseThreshold;
-
-  // Rule 1: Electronics strictly requires 90%, UNLESS it's a specific requested item
-  if (isElectronics) {
-    if (name.includes('light') || name.includes('led') || name.includes('pixel') || name.includes('diwali') || name.includes('frother') || brand.includes('ikea')) {
-      customThreshold = 70; // Exempt from the 90% block
-    } else {
-      customThreshold = 90;
-    }
-  }
-  // Rule 2: High priority essentials & cleaning
-  else if (brand.includes('aashirvaad') || name.includes('aashirvaad')) customThreshold = 40;
-  else if (brand.includes('tide') || name.includes('tide')) customThreshold = 40;
-  else if (brand.includes('vim') || name.includes('vim')) customThreshold = 40;
-  else if (name.includes('atta') || name.includes('coffee')) customThreshold = 40;
-  else if (name.includes('cashew') || name.includes('almond') || brand.includes('ariel')) customThreshold = 50;
-  else if (name.includes('dal')) customThreshold = 60;
-  else if (name.includes('chocolate') || cat.includes('home decor')) customThreshold = 70;
-  
-  // Rule 3: Targeted personal care brands (default at 70%)
-  else if (brand.includes('loreal') || brand.includes("l'oreal") || name.includes('loreal') || name.includes("l'oreal")) customThreshold = 70;
-  else if (brand.includes('nivea') || name.includes('nivea')) customThreshold = 70;
-  else if (brand.includes('be neude') || name.includes('be neude')) customThreshold = 70;
-  else if (brand.includes('ajmal') || name.includes('ajmal')) customThreshold = 70;
-  else if (brand.includes('himalaya') || name.includes('himalaya')) customThreshold = 70;
-  else if (brand.includes('pantene') || name.includes('pantene')) customThreshold = 70;
-  else if (name.includes('shampoo') || name.includes('body lotion') || name.includes('face wash') || name.includes('hair oil')) customThreshold = 70;
-
-  // Rule 4: Catch IKEA, Frothers, and Lights in non-electronics categories
-  else if (name.includes('frother') || brand.includes('ikea') || name.includes('diwali') || name.includes('pixel') || name.includes('chain light') || name.includes('string light')) {
-    customThreshold = 70;
-  }
+  // Threshold rules: Strictly above 94% (> 94 => >= 95) for electronics, >= 80% for everything else
+  let customThreshold = isElectronics ? 95 : 80;
 
   let tier = 'TIER_LOW';
   if (isGlitch) {
     tier = 'GLITCH';
-  } else if (!isElectronics && item.discount >= 80) {
+  } else if (item.discount >= customThreshold) {
     tier = 'MEGA_LOOT';
-  } else if (isElectronics && item.discount >= 90) {
-    tier = 'MEGA_LOOT'; // Lights/Frothers in electronics will also hit this if they reach 90%
-  } else if (item.discount >= 70) {
-    tier = 'TIER_70';
-  } else if (item.discount >= 40) {
-    tier = 'TIER_40';
   }
 
   return { threshold: customThreshold, tier };
 }
 
-function findAlertWorthyDeals(items, minDiscount = 70, campaignKey = 'default', options = {}) {
+function findAlertWorthyDeals(items, minDiscount = 80, campaignKey = 'default', options = {}) {
   const storeId = options.storeId || 'default';
   const cache = loadCache(campaignKey, storeId);
   const alertList = [];
@@ -131,9 +91,10 @@ function findAlertWorthyDeals(items, minDiscount = 70, campaignKey = 'default', 
   const seenInCurrentRun = new Map();
 
   for (const item of items) {
-    const rule = evaluateCustomRules(item, typeof minDiscount === 'number' ? minDiscount : 70);
+    const rule = evaluateCustomRules(item);
     
-    if (item.discount < rule.threshold && rule.tier !== 'GLITCH' && rule.tier !== 'MEGA_LOOT') continue;
+    // Hard filter: skip anything below required discount unless it's a confirmed glitch
+    if (item.discount < rule.threshold && rule.tier !== 'GLITCH') continue;
     item.tier = rule.tier;
 
     const itemKey = getCanonicalItemKey(item);
