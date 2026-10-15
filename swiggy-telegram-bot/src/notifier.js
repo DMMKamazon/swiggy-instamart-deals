@@ -20,8 +20,8 @@ function formatCompactItem(deal, index = null) {
   let priceLine = '';
   let locationLine = '';
 
-  const discountBadge = deal.tier === 'MEGA_LOOT' 
-    ? `💣 <b>${deal.discount}% LOOT</b>` 
+  const discountBadge = deal.tier === 'MEGA_LOOT'
+    ? `💣 <b>${deal.discount}% LOOT</b>`
     : `<b>${deal.discount}% OFF</b>`;
 
   if (deal.stores && deal.stores.length > 0) {
@@ -68,9 +68,7 @@ async function sendBatchAlerts(bot, chatId, deals, options = {}) {
 
   const groups = [
     { title: '🚨 <b>PRICE ERRORS & GLITCHES (≤ ₹50)</b> 🚨', items: deals.filter(d => d.tier === 'GLITCH') },
-    { title: '💣 ⚡ <b>MASSIVE LOOT DEALS (80% – 100% OFF)</b> ⚡ 💣', items: deals.filter(d => d.tier === 'MEGA_LOOT') },
-    { title: '🔥 <b>70% TO 79% OFF</b> 🔥', items: deals.filter(d => d.tier === 'TIER_70') },
-    { title: '✨ <b>SPECIAL BRAND DEALS</b> ✨', items: deals.filter(d => d.tier === 'TIER_40' || d.tier === 'TIER_LOW') }
+    { title: '💣 ⚡ <b>MASSIVE LOOT DEALS (80% – 100% OFF)</b> ⚡ 💣', items: deals.filter(d => d.tier === 'MEGA_LOOT') }
   ];
 
   const messages = [];
