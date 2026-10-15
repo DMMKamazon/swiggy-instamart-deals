@@ -31,20 +31,7 @@
       "label": "Badarpur(Pod 5)"
     }
   ],
-  "customRules": {
-    "aashirvaad": 40,
-    "tide": 40,
-    "vim": 40,
-    "atta": 40,
-    "Ground Coffee": 40,
-    "cashew": 50,
-    "almond": 50,
-    "ariel": 50,
-    "dal": 60,
-    "chocolate": 70,
-    "home decor": 70
-  },
-  "minDiscount": 70,
+  "minDiscount": 80,
   "weeklyCategories": [
     "Electronics and Appliances"
   ],
@@ -54,7 +41,7 @@
       "tag": "🥦",
       "type": "subcategory",
       "enabled": true,
-      "minDiscount": 60,
+      "minDiscount": 80,
       "refreshCycle": "daily",
       "subcategories": [
         {
@@ -358,7 +345,7 @@
       "tag": "🌾",
       "type": "subcategory",
       "enabled": true,
-      "minDiscount": 50,
+      "minDiscount": 80,
       "refreshCycle": "daily",
       "subcategories": [
         {
@@ -710,7 +697,7 @@
       "tag": "🍦",
       "type": "subcategory",
       "enabled": true,
-      "minDiscount": 70,
+      "minDiscount": 80,
       "refreshCycle": "daily",
       "subcategories": [
         {
@@ -1052,11 +1039,11 @@
       ]
     },
     "munchies": {
-      "name": "Snacks, Munchies & Instant Foods",
+      "name": "Snacks, Munchies, Instant Foods & Paan",
       "tag": "🍿",
       "type": "subcategory",
       "enabled": true,
-      "minDiscount": 60,
+      "minDiscount": 80,
       "refreshCycle": "daily",
       "subcategories": [
         {
@@ -1334,6 +1321,30 @@
           "name": "Premium dry Fruits",
           "id": "6970b51fb9ed3d00010081ee",
           "taxonomyType": "taxonomy 10"
+        },
+        {
+          "category": "Paan Corner",
+          "name": "Paan & Mukhwas",
+          "id": "6903b179fe6d7500013a0d17",
+          "taxonomyType": "IM Meatsy"
+        },
+        {
+          "category": "Paan Corner",
+          "name": "Lighters & Accessories",
+          "id": "6903b179fe6d7500013a0d18",
+          "taxonomyType": "IM Meatsy"
+        },
+        {
+          "category": "Paan Corner",
+          "name": "Herbal Cigarettes",
+          "id": "6903b179fe6d7500013a0d19",
+          "taxonomyType": "IM Meatsy"
+        },
+        {
+          "category": "Paan Corner",
+          "name": "Hookah & Coal",
+          "id": "6903b179fe6d7500013a0d1a",
+          "taxonomyType": "IM Meatsy"
         }
       ]
     },
@@ -1342,12 +1353,7 @@
       "tag": "🥤",
       "type": "subcategory",
       "enabled": true,
-      "minDiscount": 70,
-      "brandExceptions": {
-        "coffee beans": 40,
-        "grounded coffee": 40,
-        "ground coffee": 40
-      },
+      "minDiscount": 80,
       "refreshCycle": "daily",
       "subcategories": [
         {
@@ -1647,14 +1653,11 @@
       ]
     },
     "personalCare": {
-      "name": "Personal Care, Cleaning & Hygiene",
+      "name": "Personal Care, Makeup, Wellness & Cleaning",
       "tag": "🧴",
       "type": "subcategory",
       "enabled": true,
-      "minDiscount": 70,
-      "brandExceptions": {
-        "khadi": 50
-      },
+      "minDiscount": 80,
       "refreshCycle": "daily",
       "subcategories": [
         {
@@ -1904,6 +1907,54 @@
           "taxonomyType": "taxonomy 14"
         },
         {
+          "category": "Makeup",
+          "name": "Lips",
+          "id": "6903b10bd2c61b000112bac1",
+          "taxonomyType": "taxonomy 14"
+        },
+        {
+          "category": "Makeup",
+          "name": "Eyes",
+          "id": "6903b10bd2c61b000112bac2",
+          "taxonomyType": "taxonomy 14"
+        },
+        {
+          "category": "Makeup",
+          "name": "Nails",
+          "id": "6903b10bd2c61b000112bac3",
+          "taxonomyType": "taxonomy 14"
+        },
+        {
+          "category": "Makeup",
+          "name": "Face",
+          "id": "6903b10bd2c61b000112bac4",
+          "taxonomyType": "taxonomy 14"
+        },
+        {
+          "category": "Makeup",
+          "name": "Tools and Brushes",
+          "id": "6903b10bd2c61b000112bac5",
+          "taxonomyType": "taxonomy 14"
+        },
+        {
+          "category": "Sexual Wellness",
+          "name": "Condoms",
+          "id": "6903b10bd2c61b000112bac8",
+          "taxonomyType": "taxonomy 14"
+        },
+        {
+          "category": "Sexual Wellness",
+          "name": "Lubricants",
+          "id": "6903b10bd2c61b000112bac9",
+          "taxonomyType": "taxonomy 14"
+        },
+        {
+          "category": "Sexual Wellness",
+          "name": "Massagers and Toys",
+          "id": "6903b10bd2c61b000112baca",
+          "taxonomyType": "taxonomy 14"
+        },
+        {
           "category": "Feminine Hygiene",
           "name": "Sanitary Pads",
           "id": "6903b10bd2c61b000112bacc",
@@ -2006,7 +2057,7 @@
       "tag": "👶",
       "type": "subcategory",
       "enabled": true,
-      "minDiscount": 70,
+      "minDiscount": 80,
       "refreshCycle": "daily",
       "subcategories": [
         {
@@ -2232,7 +2283,7 @@
       "tag": "✨",
       "type": "collection",
       "enabled": false,
-      "minDiscount": 50,
+      "minDiscount": 80,
       "refreshCycle": "weekly",
       "weeklyResetDay": 1,
       "subcategories": [
